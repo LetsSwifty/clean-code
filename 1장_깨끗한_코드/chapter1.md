@@ -87,16 +87,21 @@
 <br>전문가라면 너무도 당연하지 않은가! 
 <br>**지속적인 개선이야말로 전문가 정신의 본질이다.**
 
+
 ## SOLID 원칙
+로버트 마틴씨가 객체 지향 프로그래밍 및 설계의 다섯 가지 기본 원칙을 마이클 페더스가 두문자어 기억술로 소개한 것이다.
+
+프로그래머가 시간이 지나도 유지 보수와 확장이 쉬운 시스템을 만들고자 할 때 이 원칙들을 함께 적용할 수 있다.
+
 * SRP(The Single Responsibility Principle): <br>클래스에는 한 가지, 단 한 가지 변경 이유만 존재해야 한다.
 
-* OCP(The Open Closed Principle): <br>클래스에는 한 가지, 단 한 가지 변경 이유만 존재해야 한다.
+* OCP(The Open Closed Principle): <br>클래스는 확장에 열려 있어야 하며 변경에 닫혀 있어야 한다.
 
-* LSP(The Liscov Substitution Principle): <br>클래스에는 한 가지, 단 한 가지 변경 이유만 존재해야 한다.
+* LSP(The Liscov Substitution Principle): <br>상속받은 클래스는 기초 클래스를 대체할 수 있어야 한다.
 
-* ISP(The Interface Segregation Principle): <br>클래스에는 한 가지, 단 한 가지 변경 이유만 존재해야 한다.
+* ISP(The Interface Segregation Principle): <br>클라이언트에 밀접하게 작게 쪼개진 인터페이스를 유지한다.
 
-* DIP(The Dependency Injection Principle): <br>클래스에는 한 가지, 단 한 가지 변경 이유만 존재해야 한다.
+* DIP(The Dependency Injection Principle): <br>추상화에 의존해야 하며, 구체화에 의존하면 안된다.
 
 ## 결론
 * 예술에 대한 책을 읽는다고 예술가가 된다는 보장은 없다.
