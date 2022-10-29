@@ -27,9 +27,9 @@ var fileAgeInDays: Int
 func getThem() -> Array<[Int]> {
 	var list1 = Array<[Int]>()
 	for x in self.theList {
-			if x[0] == 4 {
-					list1.append(x)
-			}
+		if x[0] == 4 {
+			list1.append(x)
+		}
 	}
 	return list1
 }
@@ -91,13 +91,13 @@ func getFlaggedCells() -> [Cell] {
 
 유사한 개념은 유사한 표기법을 사용한다. 이것도 **정보**다. 일관성이 떨어지는 표기법은 **그릇된 정보**다. IDE에서 자동 완성 기능을 사용할 때 각 개념 차이가 명백히 드러난다면 굉장히 유용해진다. 
 
-## 의미있게 구분하다
+## 의미있게 구분하라
 
 컴파일러나 인터프리터만 통과하려는 생각으로 코드를 구현하는 프로그래머는 **스스로 문제를 일으킨다.**
 
 * 예를 들어, 동일한 범위 안에서는 다른 두 개념에 같은 이름을 사용하지 못한다. 그래서 프로그래머가 한쪽 이름을 마음대로 바꾸고 싶은 유혹에 빠지고 철자만 살짝 바꾼다. 나중에 철자 오류를 고치는 순간 컴파일이 불가능한 상황에 빠진다.
 
-* 컴파일러를 통과할지라도 연손된 숫자를 덧붙이거나 불용어(noise word)를 추가하는 방식은 적절하지 못하다.
+* 컴파일러를 통과할지라도 연속된 숫자를 덧붙이거나 불용어(noise word)를 추가하는 방식은 적절하지 못하다.
 * 연속적인 숫자를 덧붙인 이름(a1, a2, ..., aN)은 아무런 정보를 제공하지 못하는 이름일 뿐이다.
 
 ```swift
@@ -111,7 +111,12 @@ func copyChars(a1: [Character], a2: [Character]) {
 인자를 `source`, `destination`이라 이름 지으니 확실히 명확하다.
 
 ```swift
-
+func copyChars(source: [Character], destination: [Character]) {
+    var source = source, destination = destination
+    for i in 0..<source.count {
+        destination[i] = source[i]
+    }
+}
 ```
 
 * 불용어를 추가한 이름 역시 아무런 정보도 제공하지 못한다. `Product`라는 클래스가 있다고 가정하자. 다른 클래스를 `ProductInfo` 혹은 `ProductData`라 부른다면 개념을 구분하지 않은 채 이름만 달리한 경우다. Info나 Data는 a, an, the와 마찬가지로 의미가 불분명한 불용어다.
@@ -149,6 +154,10 @@ for j in 0 ..< numberOfTasks {
 * 대개 새로운 개발자가 익힐 코드 양은 상당히 많다. 여기다 **인코딩 언어까지 익히라는 요구는 비합리적이다.** 발음하기도 어려우며 오타가 생기기도 쉽다.
 
 ### 헝가리안 표기법
+과거에는 타입을 표시하기 위해 사용하였지만 최근에는 변수를 선언한 위치와 사용하는 위치가 멀지 않기도 하고, IDE는 코드를 커마일하지 않고도 타입 오류를 감지할 정도로 발전했다.
+
+따라서, 헝가리안 표기법이나 기타 인코딩 방식은 오히려 방해가 되므로 사용하지 않는다!
+
 ```swift
 let phoneString: PhoneNumber
 ```
