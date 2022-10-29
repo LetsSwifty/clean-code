@@ -25,13 +25,13 @@ var fileAgeInDays: Int
 
 ```swift
 func getThem() -> Array<[Int]> {
-	var list1 = Array<[Int]>()
-	for x in self.theList {
-		if x[0] == 4 {
-			list1.append(x)
-		}
-	}
-	return list1
+  var list1 = Array<[Int]>()
+    for x in self.theList {
+      if x[0] == 4 {
+        list1.append(x)
+      }
+    }
+  return list1
 }
 ```
 
@@ -176,11 +176,11 @@ class Part {
 
 ```swift
 class Part {
-	var description: String
+  var description: String
 	
-	func setDescription(description: String) {
-		self.description = description
-	}
+  func setDescription(description: String) {
+    self.description = description
+  }
 }
 ```
 
