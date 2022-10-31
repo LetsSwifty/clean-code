@@ -155,10 +155,10 @@ class UserValidator {
             let phrase: String = cryptographer.decrypt(codedPhrase, password)
             if phrase == "Valid Password" {
                 Session.init()
-								return true
+		return true
             } 
         }
-				return false
+	return false
     }
 }
 ```
@@ -210,6 +210,7 @@ if deletePage(page) = ERROR.ok {
         } else {
             Log.error("configkey not deleted")
         }
+    }
     else {
         Log.error("deleteReference from registry failed")
     }
@@ -235,9 +236,9 @@ catch (Exception e) {
 
 try/catch 블록은 원래 추하다. 
 
-코드 구조에 혼란을 일으키며, 정상 동작과 오유 처리 동작을 뒤섞는다. 
+코드 구조에 혼란을 일으키며, 정상 동작과 오류 처리 동작을 뒤섞는다. 
 
-그러므로 try/catch 블룩을 별도 함수로 뽑아내는 편이 좋다.
+그러므로 try/catch 블록을 별도 함수로 뽑아내는 편이 좋다.
 
 ```swift
 
@@ -291,7 +292,7 @@ case WATTING_FOR_EVENT
 
 위와 같은 클래스는 의존성 자석이다. 다른 클래스에서 Error enum을 import해 사용해야 하므로, 즉 Error enum이 변한다면 Error enum을 사용하는 클래스 전부를 다시 컴파일하고 다시 배치해야 한다.
 그래서 Error 클래스 변경이 어려워진다.
-오류 코드 대신 예외를 사용하면 새 예외는 Exception 클래스에서 파생된다따라서 재컴파일/재배치 없이도 새 예외 클래스를 추가할 수 있다.
+오류 코드 대신 예외를 사용하면 새 예외는 Exception 클래스에서 파생된다. 따라서 재컴파일/재배치 없이도 새 예외 클래스를 추가할 수 있다.
 
 ## 반복하지 마라!
 
@@ -305,9 +306,9 @@ case WATTING_FOR_EVENT
 
 소프트웨어를 짜는 행위는 어느 글짓기와 비슷하다. 
 
-내가 함수를 짤 때도 마찬가지다. 처음에는 길고 복잡하다. 들여쓰기 단계도 많고 중복된 루프도 많다. 인수 목록도 아주 길다. 이름은 즉흥적이고 코드는 중 복된다. 
-하지만 나는 그 서투른 코드를 빠짐없이 테스트하는 단위 테스트 케이 스도 만든다.
-그런 다음 나는 코드를 다듬고, 함수를 만들고, 이름을 바꾸고, 중복을 제거한 다. 메서드를 줄이고 순서를 바꾼다. 때로는 전체 클래스를 쪼개기도 한다. 이 와중에도 코드는 항상 단위 테스트를 통과한다
+내가 함수를 짤 때도 마찬가지다. 처음에는 길고 복잡하다. 들여쓰기 단계도 많고 중복된 루프도 많다. 인수 목록도 아주 길다. 이름은 즉흥적이고 코드는 중복된다. 
+하지만 나는 그 서투른 코드를 빠짐없이 테스트하는 단위 테스트 케이스도 만든다.
+그런 다음 나는 코드를 다듬고, 함수를 만들고, 이름을 바꾸고, 중복을 제거한다. 메서드를 줄이고 순서를 바꾼다. 때로는 전체 클래스를 쪼개기도 한다. 이 와중에도 코드는 항상 단위 테스트를 통과한다
 
 ## 결론
 
