@@ -1,9 +1,5 @@
 # 3장 함수
 
-의미 있는 이름을 붙여야 한다. 
-
-**왜? 결국 독자(개발자)가 읽는 것이고 이해가 잘 되면 일의 능률이 오르니깐 말이다.**
-
 ## 작게 만들어라
 
 함수를 만드는 첫째 규칙은 ‘작게!’다. 함수를 만드는 둘째 규칙은 ‘더 작게!’다.
@@ -132,6 +128,7 @@ func makeCircle(center: Point, radius: Double)
 단항 함수는 함수와 인수가 동사/명사 쌍을 이뤄야 한다.
 예를 들어, `write(name)`은 누구나 곧바로 이해한다. 좀 더 나은 이름은 `writeField(name)`이다. 그러면 이름이 필드라는 사실이 분명히 드러난다.
 마지막 에제는 함수 이름에 **키워드**를 추가하는 형식이다. 즉, 함수 이름에 인수 이름을 넣는다.
+
 예를 들어, `assertEquals`보다 `assertExpectedEqualsActual(expected, actual)`이 더 좋다.
 그러면 인수 순서를 기억할 필요가 없어진다.
 
@@ -163,8 +160,8 @@ class UserValidator {
 }
 ```
 
-여기서 함수가 일으키는 부수 효과는 `Session.init()` 호출이다.
-함수 이름만 봐서는 세션을 초기화한다는 사실이 드러나지 않는다.
+여기서 함수가 일으키는 부수 효과(Side Effect)는 `Session.init()` 호출이다.
+`checkPassword` 함수 이름만 봐서는 **유효한 비밀번호** 일때 세션을 초기화한다는 사실이 드러나지 않는다.
 만약 시간적인 결합이 필요하다면 함수 이름에 분명히 명시한다.
 함수가 ‘한 가지’만 한다는 규칙을 위반하지만, 굳이 바꾼다면
 목록 3-6은 `checkPasswordAndInitializeSession` 이라는 이름이 훨씬 좋다.
@@ -222,47 +219,29 @@ if deletePage(page) = ERROR.ok {
 // 반면 오류 코드 대신 예외를 사용하면 오류 처리 코드가 원래 코드에서 분리되
 // 므로 코드가 깔끔해진다.
 
-try {
-    deletePage (page)
-    registry.deleteReference(page.name)
-    configkeys.deleteKey(page.name.makeKey()) 
+func delete(page: Page) {
+    do {
+        try deletePageAndAllReferences(page: page)
+    catch let e {
+        os_log("%@", e) // .OK가 출력됩니다.
+    }
 }
-catch (Exception e) {
-    Log.error(e.getMessage())
+
+func deletePageAndAllReferences(page: Page) throws {
+    deletePage(page: page)
+    registry.deleteReference(page.name)
+    configKeys.deleteKey(page.name.makeKey())
+
+    throw ExampleError.OK
 }
 ```
 
 ## Try/Catch 블록 뽑아내기
 
 try/catch 블록은 원래 추하다. 
-
 코드 구조에 혼란을 일으키며, 정상 동작과 오류 처리 동작을 뒤섞는다. 
-
 그러므로 try/catch 블록을 별도 함수로 뽑아내는 편이 좋다.
 
-```swift
-
-func delete(page: Page) {
-    try {
-        deletePageAndAlReferences(page)
-    catch (Exception e) {
-        Log.error(e)
-    }
-}
-
-func deletePageAndAllReferences(page: Page) throws -> () {
-    deletePage(page)
-    registry.deleteReferences(page.name)
-    configKeys.deleteKey(page.name.makeKey())
-    catch (Exception e) {
-        Log.error(e)
-    }
-}
-
-func logError(e: Exception) {
-    Log.error(e.getMessage())
-}
-```
 
 위에서 delete 함수는 모든 오류를 처리한다. 그래서 코드를 이해하기 쉽다.
 실제로 페이지를 제거하는 함수는 `deletePageAndAllReference`다.
@@ -290,9 +269,12 @@ case WATTING_FOR_EVENT
 }
 ```
 
-위와 같은 클래스는 의존성 자석이다. 다른 클래스에서 Error enum을 import해 사용해야 하므로, 즉 Error enum이 변한다면 Error enum을 사용하는 클래스 전부를 다시 컴파일하고 다시 배치해야 한다.
-그래서 Error 클래스 변경이 어려워진다.
-오류 코드 대신 예외를 사용하면 새 예외는 Exception 클래스에서 파생된다. 따라서 재컴파일/재배치 없이도 새 예외 클래스를 추가할 수 있다.
+위와 같은 Error 열거형은 의존성 자석이다. 
+Error Enum case나 값이 변한다면 Error Enum을 사용하는 클래스 전부를 다시 컴파일하고 다시 배치해야 한다.
+그래서 Error 열겨형 변경이 어려워진다.
+오류 코드 대신 예외를 사용하면 새 예외는 do-catch 문에서 핸들링 할 수 있다.
+따라서 재컴파일/재배치 없이도 새 예외 클래스를 추가할 수 있다.
+
 
 ## 반복하지 마라!
 
