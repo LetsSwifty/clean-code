@@ -37,7 +37,6 @@ JUnit, FitNesse 은 파일크기가 작은 프로젝트이다. 대부분 200줄 
 //
 
 import Foundation
-import UIKit
 
 protocol ChapterExDelegate {
     func boldWidget()
@@ -128,7 +127,7 @@ class Chapter5 {
         loadPage(pageName)
     }
 
-    func getPageNameOrDefault(request: Request) {
+    func getPageNameOrDefault(request: Request) -> String {
         return request.getResource()
     }
 
@@ -180,9 +179,9 @@ class Assert {
 
 ```swift
 func measureLine(_ line: String) {
-	lineCount += 1
-	var lineSize = lineCount.count
-	lineWidthHistogram.addLine(lineSize, lineCount)
+    lineCount += 1
+    var lineSize = lineCount.count
+    lineWidthHistogram.addLine(lineSize, lineCount)
 }
 ```
 
@@ -197,12 +196,12 @@ func measureLine(_ line: String) {
 공백을 사용해서 위 내용을 더욱 강조할 수 있다.
 
 ```swift
-func root1(a: Double, b: Double, c: Double) {
-	return (-b + Math.sqrt(determinant()) / (2*a)
+func root1(a: Double, b: Double, c: Double) -> Double {
+    return (-b + sqrt(determinant(a: 1.0, b: 2.0, c: 3.0)) / (2*a))
 }
 
 func determinant(a: Double, b: Double, c: Double) -> Double {
-	return b*b - 4*a*c
+    return b*b - 4*a*c
 }
 ```
 
