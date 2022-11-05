@@ -173,7 +173,7 @@ public class Circle: Shape {
 
 아래 코드는 디미터 법칙을 어기는 듯이 보인다. getOptions() 함수가 반환하는 객체의 getScratchDir() 함수를 호출한 후 getScratchDir() 함수가 반환하는 객체의 getAbsolutePath() 함수를 호출하기 때문이다.
 
-`final String outputDir = txt.getOptions ().getScratchDir().getAbsolutePath()`
+`final String outputDir = txt.getOptions().getScratchDir().getAbsolutePath()`
 
 ### 기차 충돌
 
