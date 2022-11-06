@@ -19,7 +19,8 @@ Clean code를 읽고 프로그래밍에서의 클린 코드를 만드는 최상�
 |  챕터 2   | [의미 있는 이름](2장_의미_있는_이름/chapter2.md) |                              |  [갱이][gaeng2y]  |
 |  챕터 3   | [함수](3장_함수/chapter3.md)                     |                              |  [Rx][kangddong]  |
 |  챕터 4   | [주석](4장_주석/chapter4.md)                     |                              |   [나희][nahee]   |
-|  챕터 5   | [형식 맞추기](5장_형식_맞추기/chapter5.md)       |                              | [히진][heejin342] |
+|  챕터 5   | [형식 맞추기](5장_형식_맞추기/chapter5.md)       |                              | [히진][heejin] |
+|  챕터 6   | [객체와 자료 구조](6장_객체와_자료_구조/chapter6.md)       |                              | [갱이][gaeng2y] |
 
 ## References
 
