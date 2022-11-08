@@ -30,8 +30,8 @@ class DeviceController {
     func sendShutDown() -> Void {
         do {
             try shutDown()    
-        } catch {
-            Log.error(error)
+        } catch let e {
+            Log.error(e)
         }
     }
     
@@ -59,45 +59,104 @@ class DeviceController {
     ...
 }
 ```
-
+7-1의 코드르 7-2로 바뀌면서 코드가 깔금해졌고, 코드 품질도 나아졌다.
+디바이스를 종료하는 알고리즘과 오류를 처리하는 알고리즘을 분리했기 떄문이다.
+이제는 각 개념을 독립적으로 살펴보고 이해할 수 있다.
 
 ## Try-Catch 문부터 작성하라
 
 try-catch 문에서 try 블록에 들어가는 코드를 실행하면 어느 시점에서든 실행이 중단된 후 catch 블록으로 넘어갈 수 있다.
 
 ```swift
-func pauseDevice(_ handel: DeviceHandle) throws {
+func pauseDevice(_ handle: DeviceHandle) throws {
     ...
     throw DeviceStateError.PAUSE
     ...
 }
-func clearDeviceWorkQueue(_ handel: DeviceHandle) throws {
+func clearDeviceWorkQueue(_ handle: DeviceHandle) throws {
     ...
     throw DeviceStateError.NEEDCLEARQUEUE
     ...
 }
-func closeDevice(_ handel: DeviceHandle) throws {
+func closeDevice(_ handle: DeviceHandle) throws {
     ...
     throw DeviceStateError.NEEDCLOSE
     ...
 }
 
-private func shutDown() throws {
-        let handle = getHandle(DEV1)
-        let record = retrieveDeviceRecord(handle)
+enum DeviceStateError: Error {
+    case pause
+    case needClearQueue
+    case needClose
+}
+
+// 확인된 예외를 사용하는 법 - 1 catch + enum
+private func shutDown() {
+    let handle = getHandle(DEV1)
+    let record = retrieveDeviceRecord(handle)
         
-        do {
-            try pauseDevice(handle)
-            try clearDeviceWorkQueue(handle)
-            try closeDevice(handle)       
-        } catch DeviceShutDownError.error1 {
-            ...
-            throw ...
-        } catch {
-            
+    do {
+        try pauseDevice(handle)
+        try clearDeviceWorkQueue(handle)
+        try closeDevice(handle)       
+    } catch DeviceShutDownError.PAUSE {
+        // pauseDevice(handle)에 대한 확인 된 에외 처리
+    } catch {
+        // 미확인 예외처리 - Swift 문법 상 필수로 생기는 영역
+    }        
+}
+
+// 확인된 예외를 사용하는 법 - 2 - Switch
+private func shutDown() {
+    let handle = getHandle(DEV1)
+    let record = retrieveDeviceRecord(handle)
+        
+    do {
+        try pauseDevice(handle)
+        try clearDeviceWorkQueue(handle)
+        try closeDevice(handle)       
+    } catch let e {
+        // FIXME: case가 많아질 경우, 메소드로 분리 고려
+        switch e {
+        case DeviceStateError.pause:
+            print("pause")
+        case DeviceStateError.needClearQueue:
+            print("needClearQueue")
+        case DeviceStateError.needClose:
+            print("needClose")
+        default:
+            print("default")
         }
+    }        
+}
+
+// 확인된 예외를 사용하는 법 - 3 열겨형 + Switch
+private func shutDown() {
+    let handle = getHandle(DEV1)
+    let record = retrieveDeviceRecord(handle)
         
-    }
+    do {
+        try pauseDevice(handle)
+        try clearDeviceWorkQueue(handle)
+        try closeDevice(handle)       
+    } catch let e {
+        guard let value: DeviceStateError = e as? DeviceStateError else { return }
+        
+        // FIXME: case가 많아질 경우, 메소드로 분리 고려
+        switch value {
+        case .pause:
+            print("pause")
+        case .needClearQueue:
+            print("needClearQueue")
+        case .needClose:
+            print("needClose")
+        @unknown default:
+            // Default will never be executed
+            // 열거형의 모든 case를 구현했기에 default가 필요없지만 예외가 추가될 가능성을 대비해서 @unknown default 정의
+            print("default")
+        }
+    }        
+}
 ```
 catch 블록에서 예외 유형을 좁혀 실제로 발생하는 에러를 처리한다.
 
