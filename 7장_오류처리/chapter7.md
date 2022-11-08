@@ -194,6 +194,37 @@ do {
 }
 ```
 
+```swift
+class LocalPort {
+    private innerPort: ACMEPort
+    init(innerPort: ACMEPort) {
+        self.innerPort = innerPort
+    }
+    
+    func open() {
+        do {
+           try port.open()
+        } catch DataException.DeviceResponse {
+            throw portDeviceFailure(error)
+        } catch DataException.ATM1212UnlockedException {
+            throw portDeviceFailure(error)
+        } catch DataException.GMXError {
+            throw portDeviceFailure(error)
+        }
+    }
+}
+
+let port = LocalPort(12)
+do {
+    try port.open()
+} catch DataError.PortDeviceFailure {
+    reportError(error)
+    Log.error(error)
+}
+```
+
+LocalPort 클래스처럼 ACMEPort를 감싸는 클래스는 매우 유용하다.<br>
+외부 API를 감싸면 외부 라이브러리와 프로그램 사이에서 의존성이 크게 줄어든다.
 ## 정상 흐름을 정의하라
 
 때로는 중단이 적합하지 않는 때도 있다.
