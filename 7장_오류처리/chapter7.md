@@ -288,7 +288,7 @@ class ExpenseReportDAO {
 
 class DefaultDailyMealExpense: Expense {
     
-    func getTotal -> Int {
+    func getTotal() -> Int {
         
         return 10000
     }
@@ -327,7 +327,7 @@ func registerItem(item: Item) {
 ```swift
 
 // nil을 반환하는 메서드
-func getEmployes() -> [Employee]]? {
+func getEmployes() -> [Employee]? {
     ...
     return nil
     ...
@@ -370,7 +370,7 @@ calculator.xProjection(p1: null, p2: Point(12, 13))
 ```
 
 
-대다수의 프로그래밍 언어는 호출자가 실수로 넘기는 null을 적절히 처리하는 방법이 없다.
+대다수의 프로그래밍 언어는 호출자가 실수로 넘기는 nil을 적절히 처리하는 방법이 없다.
 그렇다면 애초에 nil을 넘기지 못하도록 금지하는 정책이 합리적이다.
 
 ## 결론
