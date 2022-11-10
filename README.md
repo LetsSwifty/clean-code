@@ -21,7 +21,8 @@ Clean code를 읽고 프로그래밍에서의 클린 코드를 만드는 최상�
 |  챕터 4   | [주석](4장_주석/chapter4.md)                     |                              |   [나희][nahee]   |
 |  챕터 5   | [형식 맞추기](5장_형식_맞추기/chapter5.md)       |                              | [히진][heejin] |
 |  챕터 6   | [객체와 자료 구조](6장_객체와_자료_구조/chapter6.md)       |                              | [갱이][gaeng2y] |
-
+|  챕터 7   | [오류 처리](7장_오류처리/chapter7.md)       |                              | [Rx][kangddong] |
+|  챕터 8   | [경계](8장_경계/chapter8.md)       |                              | [나희][nahee] |
 ## References
 
 ![image](https://user-images.githubusercontent.com/48209839/197956570-f12f9f03-e53f-4797-8417-0f3b363a1606.png) ![image](https://user-images.githubusercontent.com/48209839/197956642-1b386afb-0059-48d1-bf5d-b95003fcd1ad.png)
