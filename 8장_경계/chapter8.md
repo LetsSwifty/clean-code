@@ -12,14 +12,14 @@
 
 ```java
 // 예시 1
-Map sensors = new HasMap();
+Map sensors = new HashMap();
 Sensor s = (Sensor)sensors.get(senserId);
 ```
 예시1에서 `Map`을 그대로 사용한다면 `Map`이 가진 (사용자의 요구와 관련 없는) 다양한 기능들이 외부로 노출되어 문제가 생길 수 있다. 따라서 `Map` 반환하는 Object를 `Sensor` 타입으로 제한해야한다. 이때 타입 캐스팅할 책임은 클라이언트에 있다. 하지만 다음과 같은 코드가 한번이 아니라 여러 차례 반복 된다면 깨끗한 코드라 보기 어렵다.  
  
 ```java
 // 예시 2
-Map<String, Sensor> sensors = new HasMap<Sensor>();
+Map<String, Sensor> sensors = new HashMap<Sensor>();
 Sensor s = sensors.get(senserId);
 ```
 Generics를 사용하여 코드를 작성한다면 첫번째 예시보다 가독성이 좋은 코드를 작성할 수 있다.  
@@ -28,7 +28,7 @@ Generics를 사용하여 코드를 작성한다면 첫번째 예시보다 가독
 ```java
 // 예시 3
 public class Sensors {
-    private Map sensors = new HasMap();
+    private Map sensors = new HashMap();
 
     public Sensor getById(String id) {
         return (Sensor)sensors.get(id);
