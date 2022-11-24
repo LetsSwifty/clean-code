@@ -16,4 +16,4 @@
 - Args 클래스에서 코드 중복을 최소화하고, ArgsException 클래스를 분리했다. ArgumentMarshaler 클래스를 통해 여러 인수에 대한 추후 확장성을 만들어냈다.
 - **코드만 분리해도 설계가 좋아진다.** 관심사를 분리하면 코드를 이해하고 보수하기 훨씬 더 쉬워진다.
 
-<img href="./img/14-1.png">
+![img](https://github.com/gaeng2y/clean-code/blob/chapter14/14%EC%9E%A5_%EC%A0%90%EC%A7%84%EC%A0%81%EC%9D%B8_%EA%B0%9C%EC%84%A0/img/14-1.png?raw=true)
